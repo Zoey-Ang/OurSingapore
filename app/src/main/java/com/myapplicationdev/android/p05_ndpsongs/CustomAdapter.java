@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,7 +39,9 @@ public class CustomAdapter extends ArrayAdapter {
         TextView tvTitle = rowView.findViewById(R.id.tvTitle);
         TextView tvSinger = rowView.findViewById(R.id.tvSingers);
         TextView tvYOR = rowView.findViewById(R.id.tvYearsReleased);
-        TextView tvStars = rowView.findViewById(R.id.tvStars);
+        //TextView tvStars = rowView.findViewById(R.id.tvStars);
+        ImageView ivNew =rowView.findViewById(R.id.imageViewNew);
+        RatingBar rb = rowView.findViewById(R.id.ratingBarStars);
 
         Song songs = songList.get(position);
         tvTitle.setText(songs.getTitle());
@@ -46,8 +50,19 @@ public class CustomAdapter extends ArrayAdapter {
         tvYOR.setText(Integer.toString(songs.getYearReleased()));
         //we can use toString here because we are displaying the number of stars instead of
         //getting the number of stars.
-        tvStars.setText(songs.toString());
+        //tvStars.setText(songs.toString());
         tvSinger.setText(songs.getSingers());
+
+        rb.setRating(songs.getStars());
+
+        if (songs.getYearReleased() >= 2019)
+        {
+            ivNew.setImageResource(R.drawable.newsong);
+        }
+        else
+        {
+            ivNew.setVisibility(View.INVISIBLE);
+        }
         return rowView;
     }
 }
